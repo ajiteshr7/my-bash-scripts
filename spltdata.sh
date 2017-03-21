@@ -11,7 +11,8 @@ then
     fname=$1
     head -$n $fname > tmp.json
     tail -n +2 tmp.json > tmp2.json && mv tmp2.json tmp.json
-    sed -i '$ s/.$//' tmp.json
+    sed -i 's/.$//' tmp.json
+    cat tmp.json | tr -d '\200-\377' > tmp2.json && mv tmp2.json tmp.json
     name="data"`expr $n - 1`
     mv tmp.json $name.json
 else
